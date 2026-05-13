@@ -37,4 +37,27 @@ public class CustomerRepository {
         dbConnection.dbClose();
         return list;
     }
+
+    public List<Customer> getCustomersByCity(String city) throws SQLException {
+        List<Customer> list = new ArrayList<>();
+        Connection connection =  dbConnection.dbConnect();
+        // Call the proc and fetch the resultset
+
+            CallableStatement callableStatement = connection.prepareCall("{CALL get_customers_by_city(?)}");
+            callableStatement.setString(1,city);
+
+            ResultSet rst = callableStatement.executeQuery();
+
+            while(rst.next()){
+                int id = rst.getInt("id");
+                String name = rst.getString("name");
+                String cityDb = rst.getString("city");
+                int age = rst.getInt("age");
+                Customer customer = new Customer(id,name,cityDb,age); //100X 200X 300X
+                list.add(customer); //100X 200X 300X
+            }
+
+        dbConnection.dbClose();
+        return list;
+    }
 }
