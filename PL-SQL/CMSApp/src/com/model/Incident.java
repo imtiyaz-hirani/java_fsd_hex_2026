@@ -3,7 +3,9 @@ package com.model;
 import com.enums.IncidentStatus;
 import com.enums.IncidentType;
 
-public class Incident {
+import java.util.Objects;
+
+public class Incident extends  Object{
     private int id;
     private IncidentType incidentType;
     private String progressDetails;
@@ -73,5 +75,17 @@ public class Incident {
                 ", incidentStatus=" + incidentStatus +
                 ", officer=" + officer +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Incident incident = (Incident) o;
+        return id == incident.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
