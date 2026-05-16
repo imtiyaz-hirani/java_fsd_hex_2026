@@ -12,7 +12,7 @@ public class CustomerController {
         // Reach out to Service class : Create an Object
         CustomerService customerService = new CustomerService();
         System.out.println("--- ALL Customers ----");
-        List<Customer> list =  customerService.getAllCustomers();
+        List<Customer> list =  customerService.getAllCustomerView();
         list.forEach(System.out :: println);
 
         try {
