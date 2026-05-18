@@ -36,31 +36,31 @@ public class ProductService {
     public List<Product> customSort(List<Product> list,
                                     ProductSortField productSortField,
                                     SortDirection sortDirection) {
-            if(productSortField.equals(ProductSortField.PRICE))
-                if(sortDirection.equals(SortDirection.ASC))
-                            return list
-                                    .stream()
-                                    //.sorted(new ProductSortUtility())
-                                    .sorted((Product p1, Product p2) -> (int)(p1.getPrice() - p2.getPrice()))
-                                    .toList();
-               if(sortDirection.equals(SortDirection.DESC))
-                            return list
-                                    .stream()
-                                    .sorted((p1,  p2) -> (int)(p2.getPrice() - p1.getPrice()))
-                                    .toList();
-
-            if(productSortField.equals(ProductSortField.DATE_OF_PUBLISH))
-               if(sortDirection.equals(SortDirection.ASC))
-                            return list
-                                    .stream()
-                                    .sorted() //work here
-                                    .toList();
-               if(sortDirection.equals(SortDirection.ASC))
-                            return list
-                                    .stream()
-                                    .sorted() //work here
-                                    .toList();
-
+            if(productSortField.equals(ProductSortField.PRICE)) {
+                if (sortDirection.equals(SortDirection.ASC))
+                    return list
+                            .stream()
+                            //.sorted(new ProductSortUtility())
+                            .sorted((Product p1, Product p2) -> (int) (p1.getPrice() - p2.getPrice()))
+                            .toList();
+                if (sortDirection.equals(SortDirection.DESC))
+                    return list
+                            .stream()
+                            .sorted((p1, p2) -> (int) (p2.getPrice() - p1.getPrice()))
+                            .toList();
+            }
+            if(productSortField.equals(ProductSortField.DATE_OF_PUBLISH)) {
+                if (sortDirection.equals(SortDirection.ASC))
+                    return list
+                            .stream()
+                            .sorted((p1, p2) -> p1.getDateOfPublish().compareTo(p2.getDateOfPublish())) //work here
+                            .toList();
+                if (sortDirection.equals(SortDirection.DESC))
+                    return list
+                            .stream()
+                            .sorted((p1, p2) -> p2.getDateOfPublish().compareTo(p1.getDateOfPublish())) //work here
+                            .toList();
+            }
     return list;
     }
 }

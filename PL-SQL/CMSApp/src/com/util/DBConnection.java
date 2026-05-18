@@ -5,6 +5,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
+
+    private final static DBConnection dbConnection;
+
+    static{
+        dbConnection = new DBConnection();
+    }
+    private DBConnection() { }
+
+    public static DBConnection getInstance(){
+        return dbConnection;
+    }
+
     private String url="jdbc:mysql://localhost:3306/crime_db";
     private String userDb = "root";
     private String passDB = "deepcoder";

@@ -11,10 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserRepository {
-    private final DBConnection dbConnection = new DBConnection();
 
     public User authenticateUser(String username, String password) throws SQLException {
-        Connection connection = dbConnection.dbConnect();
+        System.out.println("DB Conn Object at " + DBConnection.getInstance());
+        Connection connection = DBConnection.getInstance().dbConnect();
         String sql = "select * from users where username = ? and password = ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, username);
@@ -27,11 +27,11 @@ public class UserRepository {
             String password1 = rst.getString("password");
             Role role  = Role.valueOf(rst.getString("role").toUpperCase()) ;
             User user = new User(id,username1,password1,role);
-            dbConnection.dbClose();
+            DBConnection.getInstance().dbClose();
             return user;
         }
         else{
-            dbConnection.dbClose();
+            DBConnection.getInstance().dbClose();
             throw new UserNotFoundException("Invalid Credentials");
         }
 
