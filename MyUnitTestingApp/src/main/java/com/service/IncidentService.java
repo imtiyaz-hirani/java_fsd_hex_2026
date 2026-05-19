@@ -11,7 +11,6 @@ public class IncidentService {
 
     public Incident getById(List<Incident> list, int id){
 
-
         return list
                 .stream()
                 .filter(incident -> incident.getId() == id)
@@ -27,8 +26,11 @@ public class IncidentService {
         */
     }
 
-    public List<Incident> getByStatus(List<Incident> list, IncidentStatus status){
-        return null;
+    public List<Incident> getByStatus(List<Incident> list, IncidentStatus status) {
+
+        return list.stream()
+                .filter(incident -> incident.getIncidentStatus().equals(status))
+                .toList();
     }
 
     public List<Incident> getByType(List<Incident> list, IncidentType type){

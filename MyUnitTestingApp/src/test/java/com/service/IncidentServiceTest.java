@@ -41,7 +41,14 @@ public class IncidentServiceTest {
 
     @Test
     public void getByStatusTest(){
-
+        // Prepare input and output
+        Incident incident2 = new Incident(2, IncidentType.THEFT, "Security footage under review.", IncidentStatus.ACTIVE);
+        // Use Case : List having Incident Entry
+        Assertions.assertEquals(List.of(incident2), incidentService.getByStatus(list,IncidentStatus.ACTIVE));
+        // Use Case : Empty list passed
+        Assertions.assertEquals(List.of(), incidentService.getByStatus(List.of(),IncidentStatus.ACTIVE));
+        // Use Case : Null value of status passed
+        Assertions.assertEquals(List.of(), incidentService.getByStatus(list,null));
     }
 
     @Test
