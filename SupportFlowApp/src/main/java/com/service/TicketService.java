@@ -36,7 +36,13 @@ public class TicketService {
         }
 
         // Remove the object
-        session.remove(ticket);
+        // session.remove(ticket);
+
+        // delete using HQL
+        session.createMutationQuery("delete from Ticket where id=:id")
+                .setParameter("id",id)
+                .executeUpdate();
+
         tx.commit();
     }
 
