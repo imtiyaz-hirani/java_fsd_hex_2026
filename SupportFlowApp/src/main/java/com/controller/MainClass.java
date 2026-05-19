@@ -3,6 +3,7 @@ package com.controller;
 import com.config.HibernateConfig;
 import com.enums.Priority;
 import com.enums.Status;
+import com.exception.ResourceNotFoundException;
 import com.model.Ticket;
 import com.service.TicketService;
 import org.hibernate.Session;
@@ -38,6 +39,15 @@ public class MainClass {
                     System.out.println("Ticket Added");
                     break;
                 case 2:
+                    System.out.println("Enter ticket ID to delete record ");
+                    int id = sc.nextInt();
+                    try {
+                        ticketService.deleteRecord(id);
+                        System.out.println("Record deleted");
+                    }
+                    catch(ResourceNotFoundException e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 default:
                     System.out.println("invalid option. try again");

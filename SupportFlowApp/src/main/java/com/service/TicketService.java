@@ -1,5 +1,6 @@
 package com.service;
 
+import com.exception.ResourceNotFoundException;
 import com.model.Ticket;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -19,6 +20,21 @@ public class TicketService {
         //DB Op
         session.persist(ticket);
 
+        tx.commit();
+    }
+
+    public void deleteRecord(int id) {
+
+        Transaction tx = session.beginTransaction();
+        // Validate ID -- find the id in DB and fetch the object
+        Ticket ticket = session.find(Ticket.class, id);
+        if(ticket == null) {
+            tx.commit();
+            throw new ResourceNotFoundException("Invalid ID given..");
+        }
+
+        // Remove the object
+        session.remove(ticket);
         tx.commit();
     }
 }
