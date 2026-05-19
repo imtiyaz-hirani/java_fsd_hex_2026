@@ -5,6 +5,8 @@ import com.model.Ticket;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.List;
+
 public class TicketService {
 
     private final Session session;
@@ -37,4 +39,17 @@ public class TicketService {
         session.remove(ticket);
         tx.commit();
     }
+
+    public List<Ticket> getAllTickets() {
+        Transaction tx = session.beginTransaction();
+        List<Ticket> list = session
+                            .createQuery("from Ticket", Ticket.class)
+                            .list();
+        tx.commit();
+        return list;
+    }
 }
+/*
+SQL: select * from ticket
+HQL: from Ticket
+* */

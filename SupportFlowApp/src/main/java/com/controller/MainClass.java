@@ -9,6 +9,7 @@ import com.service.TicketService;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MainClass {
@@ -48,6 +49,11 @@ public class MainClass {
                     catch(ResourceNotFoundException e){
                         System.out.println(e.getMessage());
                     }
+                    break;
+                case 3:
+                    System.out.println("----------All Tickets----------");
+                    List<Ticket> list = ticketService.getAllTickets();
+                    list.forEach(System.out::println);
                     break;
                 default:
                     System.out.println("invalid option. try again");

@@ -75,4 +75,16 @@ public class Ticket {
     public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", subject='" + subject + '\'' +
+                ", details='" + details + '\'' +
+                ", priority=" + priority +
+                ", status=" + status +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
