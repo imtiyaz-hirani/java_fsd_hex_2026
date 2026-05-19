@@ -48,6 +48,17 @@ public class TicketService {
         tx.commit();
         return list;
     }
+
+    public Ticket getById(int id) {
+        Transaction tx = session.beginTransaction();
+        Ticket ticket = session.find(Ticket.class, id);
+        tx.commit();
+        if(ticket == null)
+             throw new ResourceNotFoundException("Invalid ID given..");
+
+        return ticket;
+
+    }
 }
 /*
 SQL: select * from ticket

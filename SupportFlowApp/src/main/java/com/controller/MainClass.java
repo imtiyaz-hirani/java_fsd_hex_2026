@@ -55,6 +55,26 @@ public class MainClass {
                     List<Ticket> list = ticketService.getAllTickets();
                     list.forEach(System.out::println);
                     break;
+                case 4:
+                    System.out.println("Enter the ticket id to update");
+                    id = sc.nextInt();
+                    try{
+                        ticket = ticketService.getById(id); //this comes from DB
+                        System.out.println("Existing ticket record  " + ticket);
+                        sc.nextLine();
+                        System.out.println("Enter Subject: ");
+                        ticket.setSubject(sc.nextLine());
+                        System.out.println("Enter Details: ");
+                        ticket.setDetails(sc.nextLine());
+                        System.out.println("Enter Priority: ");
+                        ticket.setPriority(Priority.valueOf(sc.next()));
+                        ticketService.insert(ticket);
+                    }
+                    catch (ResourceNotFoundException e){
+                        System.out.println(e.getMessage());
+                    }
+
+                    break;
                 default:
                     System.out.println("invalid option. try again");
                     break;
