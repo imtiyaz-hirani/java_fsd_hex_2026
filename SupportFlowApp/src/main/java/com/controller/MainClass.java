@@ -38,8 +38,34 @@ public class MainClass {
             switch(user.getRole().toString()){
                 case "CUSTOMER":
                     System.out.println("Customer Menu");
-                    
-                    break;
+                    while(true) {
+                        System.out.println("1. Add Ticket");
+                        System.out.println("2. Delete Ticket by id");
+                        System.out.println("3. Fetch all Tickets");
+                        System.out.println("4. Update Ticket");
+                        System.out.println("0. Exit ");
+                        int op = sc.nextInt();
+                        if (op == 0)
+                            break;
+
+                        switch(op) {
+                            case 1:
+                                // Take input
+                                Ticket ticket = new Ticket();
+                                sc.nextLine();
+                                System.out.println("Enter Subject: ");
+                                ticket.setSubject(sc.nextLine());
+                                System.out.println("Enter Details: ");
+                                ticket.setDetails(sc.nextLine());
+                                System.out.println("Enter Priority: ");
+                                ticket.setPriority(Priority.valueOf(sc.next()));
+                                // reach out to ticketService, pass these fields and customer username.
+                                ticketService.addTicket(ticket, username);
+                                System.out.println("Ticket added.. ");
+                                break;
+                        }
+                    }
+                        break;
                 case "EXECUTIVE":
                     break;
                 case "HR":

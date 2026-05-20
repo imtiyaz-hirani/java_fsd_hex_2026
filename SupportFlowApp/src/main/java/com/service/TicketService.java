@@ -1,6 +1,8 @@
 package com.service;
 
+import com.enums.Status;
 import com.exception.ResourceNotFoundException;
+import com.model.Customer;
 import com.model.Ticket;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -10,9 +12,11 @@ import java.util.List;
 public class TicketService {
 
     private final Session session;
+    private CustomerService customerService;
 
     public TicketService(Session session) {
         this.session = session;
+        customerService = new CustomerService(session);
     }
 
 
@@ -63,6 +67,20 @@ public class TicketService {
              throw new ResourceNotFoundException("Invalid ID given..");
 
         return ticket;
+
+    }
+
+    public void addTicket(Ticket ticket, String customerUsername) {
+        // getCustomer from customerUsername
+       Customer customer =  customerService.getByUsername(customerUsername);
+       // Assign this customer to ticket
+        ticket.setCustomer(customer);
+        // Set status of ticket as OPEN
+        ticket.setStatus(Status.OPEN);
+        // save this ticket with customer to DB
+        Transaction tx = session.beginTransaction();
+        session.persist(ticket);
+        tx.commit();
 
     }
 }
