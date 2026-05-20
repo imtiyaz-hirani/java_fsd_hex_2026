@@ -28,6 +28,12 @@ public class Ticket {
     @CreationTimestamp
     private Instant createdAt;
 
+    @ManyToOne
+    private Customer customer;
+
+    @ManyToOne
+    private Executive executive;
+
     public int getId() {
         return id;
     }
@@ -76,15 +82,11 @@ public class Ticket {
         this.createdAt = createdAt;
     }
 
-    @Override
-    public String toString() {
-        return "Ticket{" +
-                "id=" + id +
-                ", subject='" + subject + '\'' +
-                ", details='" + details + '\'' +
-                ", priority=" + priority +
-                ", status=" + status +
-                ", createdAt=" + createdAt +
-                '}';
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
