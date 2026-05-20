@@ -3,6 +3,7 @@ package com.controller;
 import com.config.HibernateConfig;
 import com.enums.Priority;
 import com.enums.Status;
+import com.exception.InvalidOwnershipException;
 import com.exception.ResourceNotFoundException;
 import com.model.Ticket;
 import com.model.User;
@@ -63,9 +64,21 @@ public class MainClass {
                                 ticketService.addTicket(ticket, username);
                                 System.out.println("Ticket added.. ");
                                 break;
+                            case 2:
+                                System.out.println("Enter id to delete the ticket");
+                                int ticketId = sc.nextInt();
+                                try{
+                                    ticketService.deleteById(ticketId, username);
+                                    System.out.println("Ticket deleted!!");
+                                }
+                                catch(ResourceNotFoundException | InvalidOwnershipException e){
+                                    System.out.println(e.getMessage());
+                                }
+                                break;
                         }
+
                     }
-                        break;
+                        break; //case customer
                 case "EXECUTIVE":
                     break;
                 case "HR":
