@@ -40,7 +40,12 @@ public class IncidentDaoImpl implements IncidentDao {
 
     @Override
     public void deleteById(int id) throws ResourceNotFoundException {
+        String sql ="delete from incident where id =? ";
+        int numRow = jdbcTemplate.update(sql, id);
+        if(numRow == 0)
+            throw new ResourceNotFoundException("Invalid id");
 
+        System.out.println("incident deleted");
     }
 
     @Override
