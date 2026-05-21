@@ -1,8 +1,10 @@
 package com.main.config;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration // Auto-loads the class for us
+@Configuration
+@ComponentScan("com.main")
 public class AppConfig {
 
     static{
