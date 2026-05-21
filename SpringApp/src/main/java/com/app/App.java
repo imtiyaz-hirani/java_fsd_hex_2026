@@ -8,6 +8,7 @@ import com.app.enums.IncidentType;
 import com.app.exceptions.ResourceNotFoundException;
 import com.app.model.Incident;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import javax.sql.DataSource;
 import java.util.Scanner;
@@ -19,19 +20,50 @@ public class App {
         Scanner sc = new Scanner(System.in);
 
         IncidentDao incidentDao = context.getBean(IncidentDaoImpl.class);
-        //incidentDao.insert(new Incident(IncidentType.ABUSE, "incident details", IncidentStatus.ACTIVE));
 
-        /*
-        System.out.println("Enter Id to delete incident");
-        int id = sc.nextInt();
-        try {
-            incidentDao.deleteById(id);
-        }
-        catch(ResourceNotFoundException e){
-            System.out.println(e.getMessage());
-        }
-        */
-         incidentDao.getAll().forEach(System.out::println);
+        while(true){
+            System.out.println("1. Add Incident");
+            System.out.println("2. Delete Incident by Id");
+            System.out.println("3. Update Incident");
+            System.out.println("4. All incidents ");
+            System.out.println("5. Get Incident by id");
+            System.out.println("0. Exit");
+            int op = sc.nextInt();
+            if(op == 0)
+                break;
+            switch(op){
+                case 1:
+                    incidentDao.insert(new Incident(IncidentType.ABUSE, "incident details", IncidentStatus.ACTIVE));
+                    break;
+                case 2:
+                    System.out.println("Enter Id to delete incident");
+                    int id = sc.nextInt();
+                    try {
+                        incidentDao.deleteById(id);
+                    }
+                    catch(ResourceNotFoundException e){
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    incidentDao.getAll().forEach(System.out::println);
+                    break;
+                case 5:
+                    System.out.println("enter id to fetch record");
+                    id = sc.nextInt();
+                    try {
+                        Incident incident = incidentDao.getById(id);
+                        System.out.println(incident);
+                    }
+                    catch(EmptyResultDataAccessException e){
+                        System.out.println("invalid id");
+                    }
+                    break;
+            } //switch ends
+
+        }  //while ends
         sc.close();
         context.close();
     }

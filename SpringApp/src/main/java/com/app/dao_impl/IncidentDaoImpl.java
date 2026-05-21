@@ -5,14 +5,14 @@ import com.app.enums.IncidentStatus;
 import com.app.enums.IncidentType;
 import com.app.exceptions.ResourceNotFoundException;
 import com.app.model.Incident;
-import com.app.util.IncidentMapperUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
-import java.sql.ResultSet;
-import java.util.List;
+ import java.util.List;
+
+
 @Component
 public class IncidentDaoImpl implements IncidentDao {
 
@@ -62,8 +62,10 @@ public class IncidentDaoImpl implements IncidentDao {
     }
 
     @Override
-    public Incident getById(int id) throws ResourceNotFoundException {
-        return null;
+    public Incident getById(int id) {
+        String sql="select * from incident where id=?";
+        return jdbcTemplate.queryForObject(sql,mapper(), id);
+
     }
 
     @Override
