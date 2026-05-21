@@ -9,6 +9,15 @@ public class Incident {
     private String progressDetails;
     private IncidentStatus incidentStatus;
 
+    public Incident() {
+    }
+
+    public Incident(IncidentType incidentType, String progressDetails, IncidentStatus incidentStatus) {
+        this.incidentType = incidentType;
+        this.progressDetails = progressDetails;
+        this.incidentStatus = incidentStatus;
+    }
+
     public int getId() {
         return id;
     }
