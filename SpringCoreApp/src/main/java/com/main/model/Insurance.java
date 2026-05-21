@@ -7,12 +7,17 @@ import java.security.PrivateKey;
 
 @Component
 public class Insurance {
-
+    // @Autowired
     private CarInsurance carInsurance;
     private BikeInsurance bikeInsurance;
 
-    public Insurance(CarInsurance carInsurance, BikeInsurance bikeInsurance) {
+    @Autowired
+    public void setCarInsurance(CarInsurance carInsurance) {
         this.carInsurance = carInsurance;
+    }
+
+    @Autowired
+    public void setBikeInsurance(BikeInsurance bikeInsurance) {
         this.bikeInsurance = bikeInsurance;
     }
 
