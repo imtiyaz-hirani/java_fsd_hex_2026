@@ -21,6 +21,7 @@ public class App {
         IncidentDao incidentDao = context.getBean(IncidentDaoImpl.class);
         //incidentDao.insert(new Incident(IncidentType.ABUSE, "incident details", IncidentStatus.ACTIVE));
 
+        /*
         System.out.println("Enter Id to delete incident");
         int id = sc.nextInt();
         try {
@@ -29,6 +30,8 @@ public class App {
         catch(ResourceNotFoundException e){
             System.out.println(e.getMessage());
         }
+        */
+         incidentDao.getAll().forEach(System.out::println);
         sc.close();
         context.close();
     }
