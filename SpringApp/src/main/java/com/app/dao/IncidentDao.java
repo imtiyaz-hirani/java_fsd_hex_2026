@@ -11,5 +11,5 @@ public interface IncidentDao {
     List<Incident> getAll();
     Incident getById(int id) ;
     void deleteById(int id) throws ResourceNotFoundException;
-    void update(int id, Incident incident) throws ResourceNotFoundException;
+    void update(Incident incident);
 }

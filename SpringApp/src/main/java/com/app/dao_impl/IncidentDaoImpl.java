@@ -79,8 +79,10 @@ public class IncidentDaoImpl implements IncidentDao {
     }
 
     @Override
-    public void update(int id, Incident incident) throws ResourceNotFoundException {
-
+    public void update(Incident incident) {
+        String sql= "update incident SET details =? where id = ?";
+        jdbcTemplate.update(sql,incident.getProgressDetails() , incident.getId());
+        System.out.println("Record updated ");
     }
 
 }

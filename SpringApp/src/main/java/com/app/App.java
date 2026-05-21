@@ -46,6 +46,25 @@ public class App {
                     }
                     break;
                 case 3:
+                    System.out.println("Enter incident id to update");
+                    try {
+                        // verified the id
+                        Incident incident = incidentDao.getById(sc.nextInt());
+                        System.out.println("Existing incident record ");
+                        System.out.println(incident);
+                        // take new progress input
+
+                        System.out.println("Enter Progress Details to edit");
+                        sc.nextLine();
+                        String progress = sc.nextLine();
+                        // attach new progress details to existing incident
+                        incident.setProgressDetails(progress);
+                        // update the incident in DB
+                        incidentDao.update(incident);
+                    }catch(EmptyResultDataAccessException e){
+                        System.out.println("invalid id");
+                    }
+
                     break;
                 case 4:
                     incidentDao.getAll().forEach(System.out::println);
