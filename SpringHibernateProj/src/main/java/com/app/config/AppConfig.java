@@ -21,7 +21,7 @@ public class AppConfig {
     public DataSource getDBConnection(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         // url, username, password, driver class
-        dataSource.setUrl("jdbc:mysql://localhost:3306/crime_db");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/supportflow");
         dataSource.setUsername("root");
         dataSource.setPassword("deepcoder");
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");

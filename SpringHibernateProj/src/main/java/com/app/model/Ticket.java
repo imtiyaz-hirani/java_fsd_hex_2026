@@ -1,15 +1,16 @@
-package com.model;
+package com.app.model;
 
-import com.enums.Priority;
-import com.enums.Status;
+import com.app.enums.Priority;
+import com.app.enums.Status;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 
-@Entity // <- this tells hibernate to create the table in Db
+@Entity
 public class Ticket {
-    @Id //<-- this makes id a primary key
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
@@ -74,11 +75,11 @@ public class Ticket {
         this.status = status;
     }
 
-    public Instant getCreatedAt() {
+    public Instant getCreateAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
+    public void setCreateAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -96,5 +97,19 @@ public class Ticket {
 
     public void setExecutive(Executive executive) {
         this.executive = executive;
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", subject='" + subject + '\'' +
+                ", details='" + details + '\'' +
+                ", priority=" + priority +
+                ", status=" + status +
+                ", createAt=" + createdAt +
+                ", customer=" + customer +
+                ", executive=" + executive +
+                '}';
     }
 }
