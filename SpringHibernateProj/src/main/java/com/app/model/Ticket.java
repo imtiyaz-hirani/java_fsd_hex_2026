@@ -8,7 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.Instant;
 
 @Entity
-public class Ticket {
+public class Ticket { //t
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

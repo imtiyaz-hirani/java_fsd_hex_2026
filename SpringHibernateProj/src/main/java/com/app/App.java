@@ -2,7 +2,9 @@ package com.app;
 
 import com.app.config.AppConfig;
 import com.app.dao.AuthDao;
+import com.app.dao.TicketDao;
 import com.app.dao_impl.AuthDaoImpl;
+import com.app.dao_impl.TicketDaoImpl;
 import com.app.model.User;
 import jakarta.persistence.NoResultException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -14,6 +16,7 @@ public class App {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(AppConfig.class);
         AuthDao authDao =  context.getBean(AuthDaoImpl.class);
+        TicketDao ticketDao =  context.getBean(TicketDaoImpl.class);
         Scanner sc = new Scanner(System.in);
         System.out.println("----------SupportFlow: LOGIN---------");
         System.out.println("Enter Username ");
@@ -39,6 +42,10 @@ public class App {
 
                                 break;
                             case 2:
+                                break;
+                            case 3:
+                                System.out.println("----------ALL Tickets--------");
+                                ticketDao.findAll(username).forEach(System.out::println);
                                 break;
                         }
                     }

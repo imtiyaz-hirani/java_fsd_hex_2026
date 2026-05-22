@@ -1,0 +1,9 @@
+package com.app.dao;
+
+import com.app.model.Ticket;
+
+import java.util.List;
+
+public interface TicketDao {
+    List<Ticket> findAll(String customerUsername);
+}
