@@ -9,7 +9,7 @@ import java.time.Instant;
 
 @Entity
 @Table(name = "user_info")
-public class User {
+public class User { //u
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

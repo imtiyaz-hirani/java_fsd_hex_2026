@@ -1,12 +1,55 @@
 package com.app;
 
 import com.app.config.AppConfig;
+import com.app.dao.AuthDao;
+import com.app.dao_impl.AuthDaoImpl;
+import com.app.model.User;
+import jakarta.persistence.NoResultException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(AppConfig.class);
+        AuthDao authDao =  context.getBean(AuthDaoImpl.class);
+        Scanner sc = new Scanner(System.in);
+        System.out.println("----------SupportFlow: LOGIN---------");
+        System.out.println("Enter Username ");
+        String username = sc.next();
+        System.out.println("Enter Password ");
+        String password = sc.next();
+        try {
+            User user = authDao.login(username, password);
+            switch(user.getRole().toString()){
+                case "CUSTOMER":
+                    System.out.println("Welcome " + username);
+                    while(true){
+                        System.out.println("1. Add Ticket");
+                        System.out.println("2. Delete Ticket by id");
+                        System.out.println("3. Fetch all Tickets");
+                        System.out.println("4. Update Ticket");
+                        System.out.println("0. Exit ");
+                        int op = sc.nextInt();
+                        if (op == 0)
+                            break;
+                        switch(op) {
+                            case 1:
+
+                                break;
+                            case 2:
+                                break;
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        catch(NoResultException e){
+            System.out.println("Invalid Credentials");
+        }
 
         context.close();
     }
