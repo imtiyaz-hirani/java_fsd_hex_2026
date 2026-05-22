@@ -6,6 +6,8 @@ import com.app.dao.TicketDao;
 import com.app.dao_impl.AuthDaoImpl;
 import com.app.dao_impl.TicketDaoImpl;
 import com.app.enums.Priority;
+import com.app.exception.InvalidOwnershipException;
+import com.app.exception.ResourceNotFoundException;
 import com.app.model.Ticket;
 import com.app.model.User;
 import jakarta.persistence.NoResultException;
@@ -57,6 +59,31 @@ public class App {
                             case 3:
                                 System.out.println("----------ALL Tickets--------");
                                 ticketDao.findAll(username).forEach(System.out::println);
+                                break;
+                            case 4:
+                                System.out.println("Enter ticket id to update");
+                                int id = sc.nextInt();
+                                // fetch ticket and check ownership
+                                try {
+                                    Ticket ticket = ticketDao.getById(id, username);
+                                    System.out.println("Existing ticket record");
+                                    System.out.println("Enter values for update..");
+                                    sc.nextLine();
+                                    System.out.println("Enter subject");
+                                    subject = sc.nextLine();
+                                    System.out.println("Enter details");
+                                    details = sc.nextLine();
+                                    System.out.println("Enter priority");
+                                    priority = sc.next();
+                                    ticket.setSubject(subject);
+                                    ticket.setDetails(details);
+                                    ticket.setPriority(Priority.valueOf(priority));
+                                    ticketDao.update(ticket);
+                                    System.out.println("Record updated");
+                                }
+                                catch(ResourceNotFoundException | InvalidOwnershipException e){
+                                    System.out.println(e.getMessage());
+                                }
                                 break;
                         }
                     }

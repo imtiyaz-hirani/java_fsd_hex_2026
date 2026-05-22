@@ -2,6 +2,8 @@ package com.app.dao_impl;
 
 import com.app.dao.TicketDao;
 import com.app.enums.Status;
+import com.app.exception.InvalidOwnershipException;
+import com.app.exception.ResourceNotFoundException;
 import com.app.model.Customer;
 import com.app.model.Ticket;
 import jakarta.persistence.EntityManager;
@@ -46,5 +48,25 @@ import java.util.List;
         ticket.setStatus(Status.OPEN);
 
         entityManager.persist(ticket);
+    }
+
+    @Override
+    public Ticket getById(int id, String customerUsername) {
+        Ticket ticket = entityManager.find(Ticket.class, id);
+        if(ticket == null)
+            throw new ResourceNotFoundException("Invalid id given..");
+
+        // ownership check
+        if(!(ticket.getCustomer().getUser().getUsername().equals(customerUsername))){
+            throw new InvalidOwnershipException("You do not own this ticket");
+        }
+
+
+        return ticket;
+    }
+
+    @Override
+    public void update(Ticket ticket) {
+        entityManager.merge(ticket);
     }
 }
