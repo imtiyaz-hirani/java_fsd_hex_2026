@@ -35,6 +35,15 @@ public class Ticket { //t
     @ManyToOne
     private Executive executive;
 
+    public Ticket() {
+    }
+
+    public Ticket(String subject, String details, Priority priority) {
+        this.subject = subject;
+        this.details = details;
+        this.priority = priority;
+    }
+
     public int getId() {
         return id;
     }

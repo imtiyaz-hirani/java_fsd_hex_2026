@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TicketDao {
     List<Ticket> findAll(String customerUsername);
+    void save(Ticket ticket, String customerUsername);
 }

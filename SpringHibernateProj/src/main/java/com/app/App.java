@@ -5,6 +5,8 @@ import com.app.dao.AuthDao;
 import com.app.dao.TicketDao;
 import com.app.dao_impl.AuthDaoImpl;
 import com.app.dao_impl.TicketDaoImpl;
+import com.app.enums.Priority;
+import com.app.model.Ticket;
 import com.app.model.User;
 import jakarta.persistence.NoResultException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -16,7 +18,7 @@ public class App {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(AppConfig.class);
         AuthDao authDao =  context.getBean(AuthDaoImpl.class);
-        TicketDao ticketDao =  context.getBean(TicketDaoImpl.class);
+        TicketDao ticketDao =  context.getBean(TicketDao.class);
         Scanner sc = new Scanner(System.in);
         System.out.println("----------SupportFlow: LOGIN---------");
         System.out.println("Enter Username ");
@@ -39,7 +41,16 @@ public class App {
                             break;
                         switch(op) {
                             case 1:
+                                sc.nextLine();
+                                System.out.println("Enter subject");
+                                String subject = sc.nextLine();
+                                System.out.println("Enter details");
+                                String details = sc.nextLine();
+                                System.out.println("Enter priority");
+                                String priority = sc.next();
 
+                                ticketDao.save(new Ticket(subject,details, Priority.valueOf(priority)), username);
+                                System.out.println("Ticket added...");
                                 break;
                             case 2:
                                 break;
