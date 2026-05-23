@@ -22,4 +22,8 @@ public class IncidentService {
     public List<Incident> getAll() {
         return incidentRepository.findAll();
     }
+
+    public void addIncident(Incident incident) {
+        incidentRepository.save(incident);
+    }
 }
