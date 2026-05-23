@@ -32,4 +32,13 @@ public class IncidentService {
         return incidentRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Invalid incident id"));
     }
+
+    public void deleteById(int id) {
+        getById(id); // validation
+        incidentRepository.deleteById(id);
+    }
 }
+/*
+Optional<T> is a wrapper
+which says,i may or may not give u T
+ */

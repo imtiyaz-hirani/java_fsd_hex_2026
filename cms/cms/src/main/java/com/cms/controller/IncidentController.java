@@ -48,4 +48,20 @@ public class IncidentController {
                         .body(e.getMessage());
         }
     }
+    @DeleteMapping("/api/incident/delete/{id}")
+    public ResponseEntity<Object> deleteById(@PathVariable int id){
+       try {
+           incidentService.deleteById(id);
+           return ResponseEntity.ok().build();
+       }
+       catch(ResourceNotFoundException e){
+           return ResponseEntity
+                   .badRequest()
+                   .body(e.getMessage());
+       }
+    }
+
+    public void update(){
+
+    }
 }
