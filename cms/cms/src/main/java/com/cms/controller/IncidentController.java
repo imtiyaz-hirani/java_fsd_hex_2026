@@ -1,13 +1,12 @@
 package com.cms.controller;
 
+import com.cms.exception.ResourceNotFoundException;
 import com.cms.model.Incident;
 import com.cms.service.IncidentService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +32,20 @@ public class IncidentController {
     @PostMapping("/api/incident/add")
     public void addIncident(@RequestBody Incident incident){
           incidentService.addIncident(incident);
+    }
+
+    @GetMapping("/api/incident/get-one/{id}")
+    public ResponseEntity<Object> getById(@PathVariable int id){ //<-- path variable
+        try {
+            Incident incident = incidentService.getById(id);
+            return ResponseEntity
+                        .ok(incident);
+        }
+        catch(ResourceNotFoundException e){
+            // build the response
+            return ResponseEntity
+                        .badRequest()
+                        .body(e.getMessage());
+        }
     }
 }

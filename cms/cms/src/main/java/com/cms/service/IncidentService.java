@@ -1,5 +1,6 @@
 package com.cms.service;
 
+import com.cms.exception.ResourceNotFoundException;
 import com.cms.model.Incident;
 import com.cms.repository.IncidentRepository;
 import lombok.AllArgsConstructor;
@@ -25,5 +26,10 @@ public class IncidentService {
 
     public void addIncident(Incident incident) {
         incidentRepository.save(incident);
+    }
+
+    public Incident getById(int id) {
+        return incidentRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Invalid incident id"));
     }
 }
