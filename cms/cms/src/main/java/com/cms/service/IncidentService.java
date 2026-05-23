@@ -37,6 +37,15 @@ public class IncidentService {
         getById(id); // validation
         incidentRepository.deleteById(id);
     }
+
+    public void update(int id, Incident updatedIncident) {
+        Incident exisitngIncident = getById(id);
+        // set the new values given to existing incident
+        exisitngIncident.setIncidentStatus(updatedIncident.getIncidentStatus());
+        exisitngIncident.setIncidentType(updatedIncident.getIncidentType());
+        exisitngIncident.setProgressDetails(updatedIncident.getProgressDetails());
+        incidentRepository.save(exisitngIncident);
+    }
 }
 /*
 Optional<T> is a wrapper

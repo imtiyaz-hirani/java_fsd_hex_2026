@@ -60,8 +60,20 @@ public class IncidentController {
                    .body(e.getMessage());
        }
     }
+    @PutMapping("/api/incident/update/{id}")
+    public ResponseEntity<Object> update(@PathVariable int id,
+                       @RequestBody Incident updatedIncident){
+        try {
+            incidentService.update(id, updatedIncident);
+            return ResponseEntity
+                    .ok()
+                    .build();
 
-    public void update(){
-
+        }
+        catch(ResourceNotFoundException e){
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
     }
 }
