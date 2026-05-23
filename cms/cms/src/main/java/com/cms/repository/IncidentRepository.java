@@ -1,4 +1,14 @@
 package com.cms.repository;
 
-public class IncidentRepository {
+import com.cms.model.Incident;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface IncidentRepository extends JpaRepository<Incident, Integer> {
+    /*
+    IncidentRepository now has
+    - findAll
+    - findById
+    - save
+    - delete
+    * */
 }
