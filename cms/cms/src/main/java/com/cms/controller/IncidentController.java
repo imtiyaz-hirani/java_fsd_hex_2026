@@ -1,8 +1,10 @@
 package com.cms.controller;
 
+import com.cms.dto.IncidentDto;
 import com.cms.exception.ResourceNotFoundException;
 import com.cms.model.Incident;
 import com.cms.service.IncidentService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +32,8 @@ public class IncidentController {
     }
 
     @PostMapping("/api/incident/add")
-    public void addIncident(@RequestBody Incident incident){
-          incidentService.addIncident(incident);
+    public void addIncident(@Valid @RequestBody IncidentDto dto){
+          incidentService.addIncident(dto);
     }
 
     @GetMapping("/api/incident/get-one/{id}")
