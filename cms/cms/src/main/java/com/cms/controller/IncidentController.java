@@ -44,6 +44,12 @@ public class IncidentController {
           incidentService.addIncident(dto);
     }
 
+    @PostMapping("/api/incident/add/v2/{officerId}")
+    public void addIncidentWithOfficer(@Valid @RequestBody IncidentDto dto,
+                                       @PathVariable int officerId){
+        incidentService.addIncidentWithOfficer(dto,officerId);
+    }
+
     @GetMapping("/api/incident/get-one/{id}")
     public ResponseEntity<Incident> getById(@PathVariable int id){ //<-- path variable
         return ResponseEntity

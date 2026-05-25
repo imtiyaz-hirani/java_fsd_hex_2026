@@ -6,7 +6,10 @@ import com.cms.enums.IncidentType;
 import com.cms.exception.ResourceNotFoundException;
 import com.cms.mapper.IncidentMapper;
 import com.cms.model.Incident;
+
+import com.cms.model.Officer;
 import com.cms.repository.IncidentRepository;
+
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +30,7 @@ public class IncidentService {
 
     private final IncidentRepository incidentRepository;
     private final IncidentMapper incidentMapper;
+    private final OfficerService officerService;
 
     public List<Incident> getAll() {
         return incidentRepository.findAll();
@@ -67,6 +71,17 @@ public class IncidentService {
 
     public List<Incident> getByIncidentType(IncidentType incidentType) {
         return incidentRepository.findByIncidentType(incidentType);
+    }
+
+    public void addIncidentWithOfficer(IncidentDto dto, int officerId) {
+        // fetch Officer from DB based on given Id
+        Officer officer = officerService.getById(officerId);
+        // Map the dto to Entity
+        Incident incident = incidentMapper.mapDtoToEntity(dto);
+        // Attach officer to Incident
+        incident.setOfficer(officer);
+        // Save the Entity
+        incidentRepository.save(incident);
     }
 }
 /*
