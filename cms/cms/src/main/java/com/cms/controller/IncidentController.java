@@ -35,45 +35,19 @@ public class IncidentController {
     }
 
     @GetMapping("/api/incident/get-one/{id}")
-    public ResponseEntity<Object> getById(@PathVariable int id){ //<-- path variable
-        try {
-            Incident incident = incidentService.getById(id);
-            return ResponseEntity
-                        .ok(incident);
-        }
-        catch(ResourceNotFoundException e){
-            // build the response
-            return ResponseEntity
-                        .badRequest()
-                        .body(e.getMessage());
-        }
+    public ResponseEntity<Incident> getById(@PathVariable int id){ //<-- path variable
+        return ResponseEntity
+                        .ok(incidentService.getById(id));
     }
-    @DeleteMapping("/api/incident/delete/{id}")
-    public ResponseEntity<Object> deleteById(@PathVariable int id){
-       try {
-           incidentService.deleteById(id);
-           return ResponseEntity.ok().build();
-       }
-       catch(ResourceNotFoundException e){
-           return ResponseEntity
-                   .badRequest()
-                   .body(e.getMessage());
-       }
-    }
-    @PutMapping("/api/incident/update/{id}")
-    public ResponseEntity<Object> update(@PathVariable int id,
-                       @RequestBody Incident updatedIncident){
-        try {
-            incidentService.update(id, updatedIncident);
-            return ResponseEntity
-                    .ok()
-                    .build();
 
-        }
-        catch(ResourceNotFoundException e){
-            return ResponseEntity
-                    .badRequest()
-                    .body(e.getMessage());
-        }
+    @DeleteMapping("/api/incident/delete/{id}")
+    public void deleteById(@PathVariable int id){
+       incidentService.deleteById(id);
     }
+
+    @PutMapping("/api/incident/update/{id}")
+    public void update(@PathVariable int id,
+                       @RequestBody Incident updatedIncident){
+         incidentService.update(id, updatedIncident);
+     }
 }
