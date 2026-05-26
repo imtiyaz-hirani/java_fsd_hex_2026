@@ -32,4 +32,8 @@ public class OfficerService {
                 .map(OfficerMapper::entityToDto)
                 .toList();
     }
+
+    public Officer getByIncidentId(int incidentId) {
+        return officerRepository.getByIncidentId(incidentId);
+    }
 }
