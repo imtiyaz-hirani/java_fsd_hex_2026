@@ -17,4 +17,6 @@ public class Officer { //o
     @OneToOne
     private User user; //findByUserUsername(String username)
 
+    @ManyToOne
+    private Station station;
 }
