@@ -11,6 +11,7 @@ public class Officer { //o
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id; //findById
+
     @Column(nullable = false)
     private String name;
 
