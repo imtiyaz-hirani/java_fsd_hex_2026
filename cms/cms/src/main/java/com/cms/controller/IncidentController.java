@@ -3,6 +3,7 @@ package com.cms.controller;
 import com.cms.dto.IncidentDto;
 import com.cms.dto.IncidentOfficerDto;
 import com.cms.dto.IncidentRespDto;
+import com.cms.dto.OfficerIncidentStatRespDto;
 import com.cms.enums.IncidentType;
 import com.cms.exception.ResourceNotFoundException;
 import com.cms.model.Incident;
@@ -82,5 +83,10 @@ public class IncidentController {
     @GetMapping("/get/officer")
      public List<IncidentOfficerDto> getIncidentByOfficerUsername(@RequestParam String officerUsername){
         return incidentService.getIncidentByOfficerUsername(officerUsername);
+     }
+
+     @GetMapping("/stat/by-type")
+     public OfficerIncidentStatRespDto getIncidentStatByType(){
+        return incidentService.getIncidentStatByType();
      }
 }

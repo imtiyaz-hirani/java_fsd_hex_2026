@@ -60,6 +60,8 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/api/incident/get/officer/{officerId}").hasAuthority("STATION_HEAD")
 
                                 .requestMatchers(HttpMethod.GET, "/api/officer/by-incident/stat").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/incident/stat/by-type").permitAll()
+
 
                                 .anyRequest().authenticated()
 
