@@ -1,5 +1,6 @@
 package com.cms.controller;
 
+import com.cms.dto.OfficerIncidentStatRespDto;
 import com.cms.dto.OfficerReqDto;
 import com.cms.dto.OfficerResponseDto;
 import com.cms.service.OfficerService;
@@ -33,6 +34,11 @@ List of Officers:
     @PostMapping("/add")
     public void postOfficer(@RequestBody OfficerReqDto officerReqDto){
         officerService.postOfficer(officerReqDto);
+    }
+
+    @GetMapping("/by-incident/stat")
+    public OfficerIncidentStatRespDto incidentByOfficerStat(){
+        return officerService.incidentByOfficerStat();
     }
 }
 

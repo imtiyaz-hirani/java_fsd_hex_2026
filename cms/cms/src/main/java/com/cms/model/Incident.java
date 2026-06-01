@@ -36,7 +36,7 @@ public class Incident { //i
     private Instant updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY) // eager loading -- fetch type
-    @JsonIgnore
+    //@JsonIgnore
     private Officer officer; //findByOfficerId(id) -- List<Incident>
 
     /*
