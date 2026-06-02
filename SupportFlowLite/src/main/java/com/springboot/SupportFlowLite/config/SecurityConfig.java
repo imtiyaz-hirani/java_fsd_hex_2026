@@ -46,6 +46,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/customer/add").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/ticket/add").hasAuthority("CUSTOMER")
+
+                        .requestMatchers(HttpMethod.GET, "/api/ticket/all/for-customer").hasAuthority("CUSTOMER")
+                        .requestMatchers(HttpMethod.GET, "/api/ticket/all/for-executive").hasAuthority("EXECUTIVE")
+
+
+                        .requestMatchers(HttpMethod.POST, "/api/ticket/assign/{executiveId}/{ticketId}").hasAuthority("ADMIN")
                         .anyRequest().permitAll()
                 )
 
