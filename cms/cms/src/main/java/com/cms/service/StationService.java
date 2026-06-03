@@ -2,7 +2,6 @@ package com.cms.service;
 
 import com.cms.dto.IncidentStationDto;
 import com.cms.mapper.StationMapper;
-import com.cms.model.Incident;
 import com.cms.model.Officer;
 import com.cms.model.Station;
 import com.cms.repository.StationRepository;
@@ -17,7 +16,7 @@ public class StationService {
     private final  OfficerService officerService;
 
     public IncidentStationDto getStationByIncidentId(int incidentId) {
-        Incident incident = incidentService.getById(incidentId);
+        incidentService.getById(incidentId);
         Station station = stationRepository.getStationByIncidentId(incidentId);
         // get officer for this incident
         Officer officer = officerService.getByIncidentId(incidentId);

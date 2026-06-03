@@ -5,12 +5,10 @@ import com.cms.dto.IncidentOfficerDto;
 import com.cms.dto.IncidentRespDto;
 import com.cms.dto.OfficerIncidentStatRespDto;
 import com.cms.enums.IncidentType;
-import com.cms.exception.ResourceNotFoundException;
 import com.cms.model.Incident;
 import com.cms.service.IncidentService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,11 +62,6 @@ public class IncidentController {
        incidentService.deleteById(id);
     }
 
-    @PutMapping("/update/{id}")
-    public void update(@PathVariable int id,
-                       @RequestBody Incident updatedIncident){
-         incidentService.update(id, updatedIncident);
-     }
 
      @GetMapping("/type")
      public List<Incident> getByIncidentType(@RequestParam IncidentType incidentType){

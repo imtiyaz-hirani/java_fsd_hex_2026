@@ -52,14 +52,6 @@ public class IncidentService {
         incidentRepository.deleteById(id);
     }
 
-    public void update(int id, Incident updatedIncident) {
-        Incident exisitngIncident = getById(id);
-        // set the new values given to existing incident
-        exisitngIncident.setIncidentStatus(updatedIncident.getIncidentStatus());
-        exisitngIncident.setIncidentType(updatedIncident.getIncidentType());
-        exisitngIncident.setProgressDetails(updatedIncident.getProgressDetails());
-        incidentRepository.save(exisitngIncident);
-    }
 
     public IncidentRespDto getAllWithPagination(int page, int size) {
         // prepare the Pageable object using PageRequest.
@@ -86,7 +78,7 @@ public class IncidentService {
     public List<IncidentOfficerDto> getIncidentByOfficerId(int officerId) {
         // 1. write sql/jpql for this op
         // 2. write a derived query for this op
-        Officer officer = officerService.getById(officerId);
+         officerService.getById(officerId);
 
         List<Incident>  list =  incidentRepository.findByOfficerId(officerId);
         //convert list<Incident> into List<IncidentOfficerDto>
@@ -98,7 +90,7 @@ public class IncidentService {
     }
 
     public List<IncidentOfficerDto> getIncidentByOfficerUsername(String officerUsername) {
-        Officer officer = officerService.getByUsername(officerUsername);
+        officerService.getByUsername(officerUsername);
        // List<Incident>  list = incidentRepository.findByOfficerUserUsername(officerUsername);
         List<Incident>  list = incidentRepository.getByOfficerUserUsernameJpql(officerUsername);
         return list.

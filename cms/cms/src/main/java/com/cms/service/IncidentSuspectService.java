@@ -50,7 +50,7 @@ public class IncidentSuspectService {
         // Step 3: Map List<Suspect> to List<SuspectRespDto> using SuspectMapper
         return list
                 .stream()
-                .map((s)-> suspectMapper.mapEntityToDto(s,incident))
+                .map(s-> suspectMapper.mapEntityToDto(s,incident))
                 .toList();
         /*
         * In the above map fn, i am passing incident object as an extra as dto needs some incident info.
