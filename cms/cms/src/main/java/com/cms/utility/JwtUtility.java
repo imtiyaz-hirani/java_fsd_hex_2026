@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -23,6 +24,7 @@ import io.jsonwebtoken.security.Keys;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JwtUtility { //Create(Encryption) and Validate (Decryption)
+
 
     private String SECRET_KEY="hsdjfghsdjfh348534857348jsdhjsdhfjsdgh8478457hdgjfh478";
     SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
