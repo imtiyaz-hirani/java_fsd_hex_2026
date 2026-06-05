@@ -40,4 +40,5 @@ public class User implements UserDetails { //User is-a User-Details
         SimpleGrantedAuthority sga = new SimpleGrantedAuthority(role.toString());
         return List.of(sga);
     }
+
 }
