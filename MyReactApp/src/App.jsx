@@ -1,5 +1,6 @@
 import ArithmeticComponent from "./components/ArithmeticComponent";
 import CreateProduct from "./components/createProduct";
+import PostList from "./components/PostList";
 import Products from "./components/Products";
 
 function App(){ // This is the Parent component in react 
@@ -8,7 +9,8 @@ function App(){ // This is the Parent component in react
     <div>
        {/*<ArithmeticComponent /> */} 
        {/*  <Products /> */}
-       <CreateProduct />
+       {/* <CreateProduct /> */}
+       <PostList />
     </div>
   )
 }
