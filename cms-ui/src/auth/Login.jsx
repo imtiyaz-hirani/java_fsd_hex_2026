@@ -25,8 +25,9 @@ const Login = () => {
             const response = await axios.get(loginApi , config) 
             console.log(response.data)
             let token = response.data.token 
-            // Save this in localStorage 
+            // Save this in localStorage along with username
             localStorage.setItem("token" , token)
+            localStorage.setItem("username", username)
 
             // Prepare the header 
             const config_details = {
