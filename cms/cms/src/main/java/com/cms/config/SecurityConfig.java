@@ -44,6 +44,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) /// Spring needs this for POST,PUT & DELETE
                 .authorizeHttpRequests(authorize -> authorize
+                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/auth/login").authenticated()
                                 .requestMatchers(HttpMethod.POST, "/api/officer/add").permitAll()
 
