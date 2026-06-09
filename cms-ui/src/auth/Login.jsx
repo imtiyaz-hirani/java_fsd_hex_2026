@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
     const [username, setUsername] = useState()
@@ -7,6 +8,9 @@ const Login = () => {
     const [errMsg, setErrMsg] = useState()
 
     const loginApi = "http://localhost:8080/api/auth/login"; 
+    const userDetailsApi="http://localhost:8080/api/auth/user-details"
+
+    const navigate = useNavigate()
 
     const onLogin = async (e)=>{
         e.preventDefault();
@@ -16,9 +20,35 @@ const Login = () => {
                 'Authorization' : "Basic " + window.btoa(username + ":" + password)
             } 
         }
+
         try{
             const response = await axios.get(loginApi , config) 
             console.log(response.data)
+            let token = response.data.token 
+            // Save this in localStorage 
+            localStorage.setItem("token" , token)
+
+            // Prepare the header 
+            const config_details = {
+            headers :{
+                'Authorization' : "Bearer " + token
+                } 
+            }
+            // Fetch User Details
+            const resp = await axios.get(userDetailsApi, config_details)
+            console.log(resp.data)
+            let role = resp.data.role
+            switch(role){
+                case 'OFFICER':
+                    navigate('/officer')
+                    break; 
+                case 'STATION_HEAD':
+                    navigate('/station-head')
+                    break; 
+                default: 
+                    setErrMsg("Invalid credentials")
+                    break; 
+            }
         }
         catch(err){
             setErrMsg("Invalid credentials")

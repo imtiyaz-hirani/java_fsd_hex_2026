@@ -46,6 +46,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/auth/login").authenticated()
+                                .requestMatchers(HttpMethod.GET, "api/auth/user-details").authenticated()
+
                                 .requestMatchers(HttpMethod.POST, "/api/officer/add").permitAll()
 
                                 .requestMatchers(HttpMethod.GET, "/api/station/by-incident/{incidentId}").permitAll()
