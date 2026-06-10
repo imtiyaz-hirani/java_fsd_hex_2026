@@ -35,7 +35,6 @@ const OfficerOnboard = () => {
         }
         catch (err) {
             console.log(err.response.data)
-
             setErrMsg("Onboarding Failed " +( err.response?.data?.message || "" ));
             setErrMsgName(err.response?.data?.name  || undefined)
             setErrMsgUsername(err.response?.data?.username || undefined)
