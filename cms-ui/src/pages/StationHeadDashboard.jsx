@@ -1,8 +1,12 @@
+import NavbarStationHead from "../components/Navbar-StationHead"
+import OfficerOnboard from "../components/station_head/OfficerOnboard"
+
 const StationHeadDashboard = ()=>{
 
     return(
         <div>
-            <h1>StationHead Dashboard</h1>
+            <NavbarStationHead />
+            <OfficerOnboard />
         </div>
     )
 }

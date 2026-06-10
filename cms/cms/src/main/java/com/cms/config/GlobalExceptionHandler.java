@@ -3,6 +3,7 @@ package com.cms.config;
 import com.cms.exception.FileInvalidExtensionException;
 import com.cms.exception.FileNotFoundException;
 import com.cms.exception.ResourceNotFoundException;
+import com.cms.exception.UserAlreadyPresentException;
 import com.cms.service.UserService;
 import com.cms.utility.ResponseUtility;
 import lombok.AllArgsConstructor;
@@ -85,6 +86,17 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(FileInvalidExtensionException.class)
     public ResponseEntity<ResponseUtility> handleFileInvalidExtensionException(
             FileInvalidExtensionException e
+    ){
+        responseUtility.setMessage(e.getMessage());
+        return ResponseEntity
+                .badRequest()
+                .body(responseUtility);
+    }
+
+    //UserAlreadyPresentException
+    @ExceptionHandler(UserAlreadyPresentException.class)
+    public ResponseEntity<ResponseUtility> handleUserAlreadyPresentException(
+            UserAlreadyPresentException e
     ){
         responseUtility.setMessage(e.getMessage());
         return ResponseEntity

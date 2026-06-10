@@ -32,7 +32,7 @@ const Login = () => {
             // Prepare the header 
             const config_details = {
             headers :{
-                'Authorization' : "Bearer " + token
+                'Authorization' : "Bearer " + token 
                 } 
             }
             // Fetch User Details

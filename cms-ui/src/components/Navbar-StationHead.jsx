@@ -1,7 +1,15 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
-const NavbarStationHead = () => {
+const NavbarStationhead = () => {
 
+    const navigate = useNavigate()
+
+    const logout = ()=>{
+        localStorage.clear() // deletes token and username 
+        navigate("/login") //goes to login page
+       // navigate("/") // goes to home page
+    }
+    const username = localStorage.getItem('username')
     return (
         <div>
             <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -15,8 +23,10 @@ const NavbarStationHead = () => {
                             </li>
                         </ul>
                         <form className="d-flex">
+                            <p>Welcome {username}</p>
                             <Link to="/login">
-                            <button className="btn btn-outline-success" type="submit">Login</button>
+                            <button className="btn btn-outline-success" type="submit" 
+                            onClick={()=>logout()}>Logout</button>
                             </Link>
                             
                         </form>
@@ -27,4 +37,4 @@ const NavbarStationHead = () => {
     )
 }
 
-export default NavbarStationHead
+export default NavbarStationhead
