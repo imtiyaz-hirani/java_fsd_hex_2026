@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class StationHead {
+public class StationHead { //sh
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
