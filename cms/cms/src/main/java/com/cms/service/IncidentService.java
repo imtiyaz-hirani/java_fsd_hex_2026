@@ -99,8 +99,8 @@ public class IncidentService {
                 .toList(); //each incident will be converted into IncidentOfficerDto
     }
 
-    public OfficerIncidentStatRespDto getIncidentStatByType() {
-       List<IncidentTypeStatDto> list = incidentRepository.getIncidentStatByType();
+    public OfficerIncidentStatRespDto getIncidentStatByType(String stationHeadUsername) {
+       List<IncidentTypeStatDto> list = incidentRepository.getIncidentStatByType(stationHeadUsername);
 
         //convert from List<IncidentTypeStatDto> to OfficerIncidentStatRespDto
         List<String> typeList =  list.stream()

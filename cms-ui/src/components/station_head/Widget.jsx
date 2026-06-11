@@ -1,14 +1,15 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 
+import IncidentBarChart from "./IncidentBarChat";
 
 const Widget = () => {
 
     const statApi = "http://localhost:8080/api/station-head/stats"
-    const [label,setLabel] = useState([])
-    const [data,setData] = useState([])
-
+     const [label, setLabel] = useState([])
+    const [data, setData] = useState([])
     useEffect(() => {
+
         // Prepare the header 
         const config_details = {
             headers: {
@@ -17,17 +18,15 @@ const Widget = () => {
         }
 
         const getStats = async () => {
-            try{
+            try {
                 const response = await axios.get(statApi, config_details)
                 setLabel(response.data.label)
                 setData(response.data.count)
             }
-            catch(err){
-                console.log(err?.response)
-            }
+            catch (err) {}
         }
-
         getStats()
+
     }, [])
     return (
         <div>
@@ -44,8 +43,8 @@ const Widget = () => {
                                     <i className="bi bi-people-fill"></i>
                                 </div>
                                 <div>
-                                    <h3 className="text-muted fs-7 text-uppercase tracking-wider mb-0 fw-semibold">{label.length > 0? label[0]: 0 }</h3>
-                                    <p className="fs-3 fw-bold text-dark mb-0 leading-none">{data.length > 0? data[0]: 0 }</p>
+                                    <h3 className="text-muted fs-7 text-uppercase tracking-wider mb-0 fw-semibold">{label.length > 0 ? label[0] : 0}</h3>
+                                    <p className="fs-3 fw-bold text-dark mb-0 leading-none">{data.length > 0 ? data[0] : 0}</p>
                                 </div>
                             </div>
                         </div>
@@ -56,8 +55,8 @@ const Widget = () => {
                                     <i className="bi bi-exclamation-triangle-fill"></i>
                                 </div>
                                 <div>
-                                    <h3 className="text-muted fs-7 text-uppercase tracking-wider mb-0 fw-semibold">{label.length > 1? label[1]: 0 }</h3>
-                                    <p className="fs-3 fw-bold text-dark mb-0 leading-none">{data.length > 1? data[1]: 0 }</p>
+                                    <h3 className="text-muted fs-7 text-uppercase tracking-wider mb-0 fw-semibold">{label.length > 1 ? label[1] : 0}</h3>
+                                    <p className="fs-3 fw-bold text-dark mb-0 leading-none">{data.length > 1 ? data[1] : 0}</p>
                                 </div>
                             </div>
                         </div>
@@ -68,8 +67,8 @@ const Widget = () => {
                                     <i className="bi bi-building-fill"></i>
                                 </div>
                                 <div>
-                                    <h3 className="text-muted fs-7 text-uppercase tracking-wider mb-0 fw-semibold">{label.length > 2? label[2]: 0 }</h3>
-                                    <p className="fs-3 fw-bold text-dark mb-0 leading-none">{data.length > 2? data[2]: 0 }</p>
+                                    <h3 className="text-muted fs-7 text-uppercase tracking-wider mb-0 fw-semibold">{label.length > 2 ? label[2] : 0}</h3>
+                                    <p className="fs-3 fw-bold text-dark mb-0 leading-none">{data.length > 2 ? data[2] : 0}</p>
                                 </div>
                             </div>
                         </div>
@@ -81,14 +80,12 @@ const Widget = () => {
                         <div className="col-12 col-md-6 d-flex">
                             <div className="data-box flex-grow-1 border border-light bg-light bg-opacity-20 shadow-sm rounded-3 p-4">
                                 <div className="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2 border-light">
-                                    <h4 className="fs-6 fw-bold text-dark mb-0">Officer Distribution</h4>
+                                    <h4 className="fs-6 fw-bold text-dark mb-0">Incident Stats By Type</h4>
                                     <i className="bi bi-bar-chart-line text-muted"></i>
                                 </div>
-                                <div className="d-flex flex-column justify-content-center align-items-center flex-grow-1 text-center py-4">
-                                    <div className="chart-mock-circle d-flex align-items-center justify-content-center mb-2">
-                                        <i className="bi bi-pie-chart text-primary opacity-50 fs-2"></i>
-                                    </div>
-                                    <span className="text-secondary small fw-medium">Officer per Station</span>
+                                <div >
+                                    {/* Here goes prime react Bar chart  */}
+                                    <IncidentBarChart />
                                 </div>
                             </div>
                         </div>

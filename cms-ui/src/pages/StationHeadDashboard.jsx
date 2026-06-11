@@ -11,12 +11,9 @@ const StationHeadDashboard = () => {
         <div className="bg-light min-vh-100 d-flex flex-column p-3">
             <NavbarStationHead />
             {/* <!-- App Shell Container --> */}
-            <div class="d-flex flex-grow-1 gap-3 align-items-stretch">
-                 
-                    <Sidebar />
-                 
-
-                <div className="flex-grow-1">
+            <div className="d-flex flex-grow-1 gap-3 align-items-stretch">
+                 <Sidebar />
+                 <div className="flex-grow-1">
                     <Widget />
                 </div>
 

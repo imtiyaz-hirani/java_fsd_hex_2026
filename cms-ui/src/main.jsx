@@ -5,6 +5,7 @@ import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'primereact/resources/themes/arya-blue/theme.css'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>

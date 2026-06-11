@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 /*
@@ -25,6 +26,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/incident")
+@CrossOrigin(origins = "http://localhost:5173")
 public class IncidentController {
 
     private final IncidentService incidentService;
@@ -79,7 +81,8 @@ public class IncidentController {
      }
 
      @GetMapping("/stat/by-type")
-     public OfficerIncidentStatRespDto getIncidentStatByType(){
-        return incidentService.getIncidentStatByType();
+     public OfficerIncidentStatRespDto getIncidentStatByType(Principal principal){
+        String stationHeadUsername = principal.getName();
+        return incidentService.getIncidentStatByType(stationHeadUsername);
      }
 }

@@ -55,6 +55,8 @@ public class SecurityConfig {
 
                                 //SH Stat
                                 .requestMatchers(HttpMethod.POST, "/api/station-head/stats").hasAuthority("STATION_HEAD")
+                                .requestMatchers(HttpMethod.GET, "/api/incident/stat/by-type").hasAuthority("STATION_HEAD")
+
 
                                 .requestMatchers(HttpMethod.GET, "/api/station/by-incident/{incidentId}").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/incident/suspect/by-incident/{incidentId}").authenticated()
@@ -64,7 +66,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/api/incident/get/officer/{officerId}").hasAuthority("STATION_HEAD")
 
                                 .requestMatchers(HttpMethod.GET, "/api/officer/by-incident/stat").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/incident/stat/by-type").permitAll()
+
 
                                 .requestMatchers(HttpMethod.POST, "/api/officer/id/upload").hasAuthority("OFFICER")
                                 .anyRequest().authenticated()
