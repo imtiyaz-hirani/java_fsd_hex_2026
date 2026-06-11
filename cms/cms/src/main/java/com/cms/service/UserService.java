@@ -25,6 +25,10 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
+    public User getByUsername(String username){
+        return userRepository.getByUsername(username);
+    }
+
     public User save(User user) {
         return userRepository.save(user);
     }

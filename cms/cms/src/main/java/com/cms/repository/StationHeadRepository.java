@@ -2,6 +2,7 @@ package com.cms.repository;
 
 import com.cms.model.Incident;
 import com.cms.model.Officer;
+import com.cms.model.Station;
 import com.cms.model.StationHead;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -30,4 +31,12 @@ public interface StationHeadRepository extends JpaRepository<StationHead, Intege
             where u.username = ?1
             """)
     List<Officer> getAllOfficers(String stationHeadUsername);
+
+    @Query("""
+            select s from Station s
+            join s.stationHead sh
+            join sh.user u
+            where u.username = ?1
+            """)
+    List<Station> getAllStations(String stationHeadUsername);
 }

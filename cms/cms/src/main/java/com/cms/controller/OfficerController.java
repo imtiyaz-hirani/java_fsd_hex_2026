@@ -38,6 +38,7 @@ List of Officers:
      * */
     @PostMapping("/add")
     public void postOfficer(@Valid @RequestBody OfficerReqDto officerReqDto){
+        System.out.println(officerReqDto.stationId());
         officerService.postOfficer(officerReqDto);
     }
 

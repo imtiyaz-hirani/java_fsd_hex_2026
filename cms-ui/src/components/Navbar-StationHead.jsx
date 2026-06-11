@@ -19,8 +19,12 @@ const NavbarStationhead = () => {
             <div className="cms-logo d-flex align-items-center justify-content-center fw-black bg-dark text-white rounded-2 px-3 py-1 font-monospace shadow-sm">
                 CMS
             </div>
+            {/* <!-- Widget Active Link --> */}
+            <Link to="/station-head" className="navbar-link fw-bold text-dark fs-5 tracking-tight text-decoration-none transition-all">
+                Dashboard
+            </Link>
             {/* <!-- Officer Onboard Active Link --> */}
-            <Link to="/officer-bonboard" className="navbar-link fw-bold text-dark fs-5 tracking-tight text-decoration-none transition-all">
+            <Link to="/station-head/officer-onboard" className="navbar-link fw-bold text-dark fs-5 tracking-tight text-decoration-none transition-all">
                 Officer Onboard
             </Link>
         </div>

@@ -1,6 +1,8 @@
 package com.cms.service;
 
 import com.cms.dto.CombinedStatDto;
+import com.cms.dto.StationDto;
+import com.cms.mapper.StationMapper;
 import com.cms.model.Incident;
 import com.cms.model.Officer;
 import com.cms.model.Station;
@@ -24,15 +26,20 @@ private final StationHeadRepository stationHeadRepository;
         List<Officer> listOfficer = stationHeadRepository.getAllOfficers(stationHeadUsername);
 
         // Fetch Station from List of Officer
-        List<Station> listStation = listOfficer.stream()
-                .map(Officer::getStation)
-                .distinct()
-                .toList();
+        List<Station> listStation = stationHeadRepository.getAllStations(stationHeadUsername);
 
         List<String> label = List.of("Incident", "Officer", "Station");
         List<Long> count = List.of((long) listIncident.size(), (long) listOfficer.size() , (long) listStation.size());
 
         return new CombinedStatDto(label,count);
+    }
+
+    public List<StationDto> getAllStations(String stationHeadUsername) {
+        List<Station> list = stationHeadRepository.getAllStations(stationHeadUsername);
+        // Convert Station Entity to StationDto
+        return list.stream()
+                .map(StationMapper :: entityToDto)
+                .toList();
     }
 }
 /*

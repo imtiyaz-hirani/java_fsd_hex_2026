@@ -12,7 +12,8 @@ public record OfficerReqDto(
         @NotNull
         @NotBlank
         @Size(min = 4, message = "Username should be at-least 4 characters")
-        String username
+        String username,
+        int stationId
 
 ) {
 }

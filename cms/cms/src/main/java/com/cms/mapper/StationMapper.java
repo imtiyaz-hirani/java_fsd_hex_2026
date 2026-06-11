@@ -1,6 +1,7 @@
 package com.cms.mapper;
 
 import com.cms.dto.IncidentStationDto;
+import com.cms.dto.StationDto;
 import com.cms.model.Officer;
 import com.cms.model.Station;
 import com.cms.service.OfficerService;
@@ -18,6 +19,14 @@ public class StationMapper {
                 station.getStationTitle(),
                 station.getStationHead().getName(),
                 officer.getName()
+        );
+
+    }
+
+    public static StationDto entityToDto(Station station){
+        return new StationDto(
+                station.getId(),
+                station.getStationTitle()
         );
     }
 }

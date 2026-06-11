@@ -51,6 +51,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "api/auth/user-details").authenticated()
 
                                 // Officer SignUp
+                                .requestMatchers(HttpMethod.GET, "/api/station-head/all/stations").hasAuthority("STATION_HEAD")
                                 .requestMatchers(HttpMethod.POST, "/api/officer/add").hasAuthority("STATION_HEAD")
 
                                 //SH Stat

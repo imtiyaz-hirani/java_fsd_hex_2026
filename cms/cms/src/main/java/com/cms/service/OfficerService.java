@@ -10,6 +10,7 @@ import com.cms.exception.ResourceNotFoundException;
 import com.cms.exception.UserAlreadyPresentException;
 import com.cms.mapper.OfficerMapper;
 import com.cms.model.Officer;
+import com.cms.model.Station;
 import com.cms.model.User;
 import com.cms.repository.OfficerRepository;
 import com.cms.utility.FileUtility;
@@ -39,6 +40,7 @@ public class OfficerService {
     private final OfficerRepository officerRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final StationService stationService;
 
     @Value("${officer.password.temp}")
     private String officerTempPassword;
@@ -65,17 +67,20 @@ public class OfficerService {
     }
 
     public void postOfficer(OfficerReqDto officerReqDto) {
-
+        // Step 0: Fetch Station from stationId
+        int stationId = officerReqDto.stationId();
+        Station station = stationService.getById(stationId);
+        System.out.println(station);
         // Step 1: Extract user info:  username.password from dto
         String username = officerReqDto.username();
         String password = officerTempPassword;
         Role role = Role.OFFICER;
 
         // Step 1.5 Check forUsername uniqueness
-        User user = (User) userService.loadUserByUsername(username);
+        User user = (User) userService.getByUsername(username);
         if(user != null)
             throw new UserAlreadyPresentException("Username is already taken, use a different username");
-
+        System.out.println("Step 2 User: " + user);
         // Step 2: Encode the password and assign Role
         String encodedPassword = passwordEncoder.encode(password);
         user = new User();
@@ -91,7 +96,11 @@ public class OfficerService {
         officer.setName(officerReqDto.name());
         officer.setUser(user); // officer having user
 
-        // Step 5: Save officer having user, in DB
+
+        // Step 5: Attach station to Officer
+         officer.setStation(station);
+        System.out.println("Step 5 Officer: " + officer);
+        // Step 6: Save officer having user, in DB
         officerRepository.save(officer);
 
     }
