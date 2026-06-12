@@ -32,8 +32,9 @@ public class IncidentController {
     private final IncidentService incidentService;
 
     @GetMapping("/all")
-    public List<Incident> getAll( ){
-        return incidentService.getAll( );
+    public List<Incident> getAll(Principal principal){
+        String officerUsername = principal.getName();
+        return incidentService.getAll(officerUsername);
     }
 
     @GetMapping("/all/v2")

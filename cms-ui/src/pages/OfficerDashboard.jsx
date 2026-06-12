@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react"
 import NavbarOfficer from "../components/NavBar-Officer"
 import axios from "axios"
-
+import IncidentList from "../components/officer/IncidentList"
+import { useDispatch } from "react-redux"
+import { getAll } from "../store/action/incidentAction"
+   
 const OfficerDashboard = () => {
 
     const [file, setFile] = useState()
@@ -10,12 +13,10 @@ const OfficerDashboard = () => {
     const [successMsg, setSuccessMsg] = useState()
 
     const [fileName, setFileName] = useState()
+    const dispatch = useDispatch() 
+
     useEffect(() => {
-        // check if token is available 
-
-        // check if User role is permissible 
-
-        // else logout and go back to login 
+       dispatch(getAll()) // Dispatch an action
     }, [])
 
     const handleFileChange = (e) => {
@@ -63,7 +64,9 @@ const OfficerDashboard = () => {
     return (
         <div>
             <NavbarOfficer />
+
             <h1>Officer Dashboard</h1>
+            
             <div className="container">
                 <div className="row">
                     <div className="col-sm-3"> </div>
@@ -94,6 +97,9 @@ const OfficerDashboard = () => {
                  
             </div>
 
+            <hr />
+            <IncidentList />
+ 
         </div>
     )
 }

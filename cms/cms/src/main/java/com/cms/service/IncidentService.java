@@ -31,8 +31,8 @@ public class IncidentService {
     private final IncidentMapper incidentMapper;
     private final OfficerService officerService;
 
-    public List<Incident> getAll() {
-        return incidentRepository.findAll();
+    public List<Incident> getAll(String officerUsername) {
+        return incidentRepository.findByOfficerUserUsername(officerUsername);
     }
 
     public void addIncident(IncidentDto dto) {
