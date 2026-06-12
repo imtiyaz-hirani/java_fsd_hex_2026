@@ -16,14 +16,12 @@ const OfficerOnboard = () => {
 
     const [errMsgName, setErrMsgName] = useState()
     const [errMsgUsername, setErrMsgUsername] = useState()
-const config_details = {
+    const config_details = {
             headers: {
                 'Authorization': "Bearer " + localStorage.getItem('token')
             }
         }
     useEffect(() => {
-        
-
         const getAllStations = async () => {
             try {
                 const response = await axios.get(getAllStationsApi, config_details)
@@ -43,7 +41,7 @@ const config_details = {
             'username': username,
             'stationId': stationId
         }
-        console.log(body)
+        
         try {
             const response = await axios.post(postApi, body, config_details)
 
@@ -55,7 +53,6 @@ const config_details = {
             setErrMsgUsername(undefined)
         }
         catch (err) {
-            console.log(JSON.stringify(err))
             setErrMsg("Onboarding Failed " + (err.response?.data?.message || ""));
             setErrMsgName(err.response?.data?.name || undefined)
             setErrMsgUsername(err.response?.data?.username || undefined)
