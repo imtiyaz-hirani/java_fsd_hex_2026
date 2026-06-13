@@ -86,4 +86,10 @@ public class IncidentController {
         String stationHeadUsername = principal.getName();
         return incidentService.getIncidentStatByType(stationHeadUsername);
      }
+
+    // Soft delete
+    @DeleteMapping("/soft-delete/{id}")
+    public void softDelete(@PathVariable int id){
+        incidentService.softDelete(id);
+    }
 }

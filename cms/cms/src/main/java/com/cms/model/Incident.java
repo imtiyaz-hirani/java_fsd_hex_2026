@@ -36,6 +36,7 @@ public class Incident { //i
     @ManyToOne // eager loading -- fetch type
     private Officer officer; //findByOfficerId(id) -- List<Incident>
 
+    private boolean isActive = true;
     /*
     @ManyToMany
     @JoinTable(name = "incident_suspect")

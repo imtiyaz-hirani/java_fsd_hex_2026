@@ -56,7 +56,7 @@ public class IncidentService {
     public IncidentRespDto getAllWithPagination(int page, int size) {
         // prepare the Pageable object using PageRequest.
         Pageable pageable =  PageRequest.of(page,size);
-        Page<Incident> pages =  incidentRepository.findAll(pageable);
+        Page<Incident> pages =  incidentRepository.getAllActive(true,pageable);
         return incidentMapper.mapEntityTODto(pages);
     }
 
@@ -118,6 +118,12 @@ public class IncidentService {
                 listNumber
         );
 
+    }
+
+    public void softDelete(int id) {
+        Incident incident = getById(id);
+        incident.setActive(false);
+        incidentRepository.save(incident);
     }
 }
 /*

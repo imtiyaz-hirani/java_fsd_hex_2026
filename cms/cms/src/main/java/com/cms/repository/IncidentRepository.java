@@ -3,6 +3,8 @@ package com.cms.repository;
 import com.cms.dto.IncidentTypeStatDto;
 import com.cms.enums.IncidentType;
 import com.cms.model.Incident;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -42,6 +44,12 @@ public interface IncidentRepository extends JpaRepository<Incident, Integer> {
             group by i.incidentType
             """)
     List<IncidentTypeStatDto> getIncidentStatByType(String username);
+
+    @Query("""
+            select i from Incident i
+            where i.isActive = ?1
+            """)
+    Page<Incident> getAllActive( boolean status , Pageable pageable);
     /* findBy : select * from Incident where officer.id=?1
         select*
         from*
