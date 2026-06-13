@@ -9,9 +9,13 @@ function IncidentList() {
     const [size, setSize] = useState(7)
     const [totalPages, setTotalPages] = useState(0)
     const [arry, setArry] = useState([])
+    const [deleteMsg, setDeleteMessage] = useState()
+
     let count = 0
 
     const api = 'http://localhost:8080/api/incident/all/v2'
+    const deleteApi = 'http://localhost:8080/api/incident/soft-delete/'
+
     useEffect(() => {
 
         const getAllIncidents = async () => {
@@ -27,13 +31,32 @@ function IncidentList() {
 
     }, [currentPage]) // Dep array 
 
-    const onDelete = (id)=>{
-        // call api to delete 
-        // update the incidents array 
+    const onDelete = async (id) => {
+        try {
+            // call api to delete 
+            await axios.delete(deleteApi + id)                              
+            // update the incidents array
+            let tempArry = [...incidents].filter(i => i.id !== id)
+            setIncidents([...tempArry])
+            setDeleteMessage("Incident deleted from the system.")
+        }
+        catch (err) { }
     }
     return (
         <div>
             <h1>All Incidents with pagination</h1>
+
+            {
+                deleteMsg !== undefined ?
+                    <div className="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div className="d-flex">
+                            <div className="toast-body">
+                                 {deleteMsg}
+                            </div>
+                            <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                    </div> : ""
+            }
             <table className="table">
                 <thead>
                     <tr>
@@ -54,7 +77,7 @@ function IncidentList() {
                                 <td>{i.incidentType}</td>
                                 <td>{i.incidentStatus}</td>
                                 <td>{i.officer?.name}</td>
-                                <td>{i.createdAt.toString().split("T")[0] }</td>
+                                <td>{i.createdAt.toString().split("T")[0]}</td>
                                 <td>{i.officer?.station?.stationTitle}</td>
                                 <td> <button className="btn btn-link p-0 text-decoration-none"
                                     onClick={() => onDelete(i.id)}>
@@ -81,7 +104,7 @@ function IncidentList() {
                             onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
                     </li>
                     {
-                        arry?.map((_, index) => (
+                        arry.map((_, index) => (
                             <li className="page-item" key={index} >
                                 <button className="page-link" onClick={() => setCurrentPage(index)}> {count = count + 1}
                                 </button>
