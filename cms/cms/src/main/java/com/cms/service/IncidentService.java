@@ -1,6 +1,7 @@
 package com.cms.service;
 
 import com.cms.dto.*;
+import com.cms.enums.IncidentStatus;
 import com.cms.enums.IncidentType;
 import com.cms.exception.ResourceNotFoundException;
 import com.cms.mapper.IncidentMapper;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -35,11 +37,11 @@ public class IncidentService {
         return incidentRepository.findByOfficerUserUsername(officerUsername);
     }
 
-    public void addIncident(IncidentDto dto) {
+    public Incident addIncident(IncidentDto dto) {
         // Map the dto to Entity
         Incident incident = incidentMapper.mapDtoToEntity(dto);
         // Save the Entity
-        incidentRepository.save(incident);
+        return incidentRepository.save(incident);
     }
 
     public Incident getById(int id) {
@@ -124,6 +126,12 @@ public class IncidentService {
         Incident incident = getById(id);
         incident.setActive(false);
         incidentRepository.save(incident);
+    }
+
+    public IncidentTypeAndStatusDto getTypeAndStatus() {
+        List<IncidentType> types =  Arrays.stream(IncidentType.values()).toList();
+        List<IncidentStatus> status =  Arrays.stream(IncidentStatus.values()).toList();
+        return new IncidentTypeAndStatusDto(types,status);
     }
 }
 /*

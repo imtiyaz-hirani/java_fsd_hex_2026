@@ -48,6 +48,7 @@ public interface IncidentRepository extends JpaRepository<Incident, Integer> {
     @Query("""
             select i from Incident i
             where i.isActive = ?1
+            order by i.createdAt DESC
             """)
     Page<Incident> getAllActive( boolean status , Pageable pageable);
     /* findBy : select * from Incident where officer.id=?1

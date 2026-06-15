@@ -10,6 +10,17 @@ function IncidentList() {
     const [totalPages, setTotalPages] = useState(0)
     const [arry, setArry] = useState([])
     const [deleteMsg, setDeleteMessage] = useState()
+    // Types and Status
+    const [types, setTypes] = useState([])
+    const [status, setStatus] = useState([])
+
+    // Input states
+    const [itype, setIType] = useState()
+    const [istatus, setIStatus] = useState()
+    const [iprogress, setIProgress] = useState()
+    const [successMsg, setSuccessMsg] = useState()
+    const [failureMsg, setFailureMsg] = useState()
+    const [tempNum, setTempNum] = useState(0)
 
     let count = 0
 
@@ -17,10 +28,11 @@ function IncidentList() {
     const deleteApi = 'http://localhost:8080/api/incident/soft-delete/'
 
     useEffect(() => {
-
+        
         const getAllIncidents = async () => {
             const response = await axios.get(api + `?page=${currentPage}&size=${size}`)
             setIncidents(response.data.data)
+           // setIncidents([...temp].sort((i1,i2)=>new Date(i2.createdAt) -  new Date(i1.createdAt)) )
             console.log(response.data.data)
             setTotalPages(response.data.totalPages)
             console.log(response.data.totalPages)
@@ -29,7 +41,7 @@ function IncidentList() {
         }
         getAllIncidents()
 
-    }, [currentPage]) // Dep array 
+    }, [currentPage, tempNum]) // Dep array 
 
     const onDelete = async (id) => {
         try {
@@ -41,6 +53,40 @@ function IncidentList() {
             setDeleteMessage("Incident deleted from the system.")
         }
         catch (err) { }
+    }
+
+    const getTypesAndStatus = async () => {
+
+        const response = await axios.get('http://localhost:8080/api/incident/type-status')
+        setTypes(response.data.types)
+        setStatus(response.data.status)
+    }
+
+    const addIncident = async () => {
+        // console.log(itype)
+        // console.log(istatus)
+        // console.log(iprogress)
+        setSuccessMsg(undefined)
+        setFailureMsg(undefined)
+        const body = {
+            incidentType: itype,
+            incidentStatus: istatus,
+            progressDetails: iprogress
+        }
+        try {
+            const response = await axios.post('http://localhost:8080/api/incident/add', body)
+            setSuccessMsg('Incident Added to DB')
+            setTempNum(tempNum +1)
+            setCurrentPage(0)
+            setFailureMsg(undefined)
+            // Add this new incident to List 
+            // setIncidents(response.data)
+        }
+        catch (err) {
+            setFailureMsg('Operation Failed, try again')
+            setSuccessMsg(undefined)
+        }
+
     }
     return (
         <div>
@@ -61,8 +107,8 @@ function IncidentList() {
             <div className="card mb-4" style={{ padding: '15px' }}>
                 <div className="row">
                     <div className="col-sm-2">
-                        <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                            > +Add </button>
+                        <button onClick={() => getTypesAndStatus()} className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        > +Add </button>
                     </div>
                     <div className="col-sm-10">
                         Filter , Sort , Search Options
@@ -70,25 +116,66 @@ function IncidentList() {
                 </div>
             </div>
             {/* Modal  */}
-             
-             
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Incident</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {
+                                successMsg !== undefined ? <div class="alert alert-primary" >
+                                    {successMsg}
+                            </div> :""
+                            }
+                            {
+                                failureMsg !== undefined ? <div class="alert alert-danger" >
+                                    {failureMsg}
+                            </div> :""
+                            }
+                            
+                            <div className="mt-4 mb-4">
+                                <label>Incident Type</label>
+                                <select className="form-control" onChange={(e) => setIType(e.target.value)}>
+                                    <option>---select type---</option>
+                                    {
+                                        types.map((t, index) => (
+                                            <option key={index} value={t}>{t}</option>
+                                        ))
+                                    }
+                                </select>
+
+                            </div>
+                            <div className="mb-4">
+                                <label>Incident Status</label>
+                                <select className="form-control" onChange={(e) => setIStatus(e.target.value)}>
+                                    <option>---select status---</option>
+                                    {
+                                        status.map((s, index) => (
+                                            <option key={index} value={s}>{s}</option>
+                                        ))
+                                    }
+                                </select>
+
+                            </div>
+                            <div className="mb-4">
+                                <label>Incident Pregress Details</label>
+                                <textarea className="form-control" onChange={(e) => setIProgress(e.target.value)} />
+
+
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onClick={() => addIncident()}>Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <table className="table">
                 <thead>
@@ -106,7 +193,7 @@ function IncidentList() {
                     {
                         incidents.map((i, index) => (
                             <tr key={index}>
-                                <th scope="row">{i.id}</th>
+                                <th scope="row">{(index+1) + (currentPage * size)}</th>
                                 <td>{i.incidentType}</td>
                                 <td>{i.incidentStatus}</td>
                                 <td>{i.officer?.name}</td>

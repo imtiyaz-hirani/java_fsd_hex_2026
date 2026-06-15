@@ -24,6 +24,7 @@ public class IncidentMapper {
         long totalElements =  pages.getTotalElements();
         int totalPages = pages.getTotalPages();
         List<Incident> list = pages.getContent();
+
         IncidentRespDto dto = new IncidentRespDto(
                 totalElements,
                 totalPages,

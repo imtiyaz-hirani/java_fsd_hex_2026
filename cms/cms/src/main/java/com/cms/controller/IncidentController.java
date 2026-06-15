@@ -1,9 +1,6 @@
 package com.cms.controller;
 
-import com.cms.dto.IncidentDto;
-import com.cms.dto.IncidentOfficerDto;
-import com.cms.dto.IncidentRespDto;
-import com.cms.dto.OfficerIncidentStatRespDto;
+import com.cms.dto.*;
 import com.cms.enums.IncidentType;
 import com.cms.model.Incident;
 import com.cms.service.IncidentService;
@@ -44,8 +41,8 @@ public class IncidentController {
     }
 
     @PostMapping("/add")
-    public void addIncident(@Valid @RequestBody IncidentDto dto){
-          incidentService.addIncident(dto);
+    public Incident addIncident(@Valid @RequestBody IncidentDto dto){
+          return incidentService.addIncident(dto);
     }
 
     @PostMapping("/add/v2/{officerId}")
@@ -92,4 +89,10 @@ public class IncidentController {
     public void softDelete(@PathVariable int id){
         incidentService.softDelete(id);
     }
+
+    @GetMapping("/type-status")
+    public IncidentTypeAndStatusDto getTypeAndStatus(){
+        return incidentService.getTypeAndStatus();
+    }
+
 }

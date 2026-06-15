@@ -57,13 +57,14 @@ public class SecurityConfig {
                                 //SH Stat
                                 .requestMatchers(HttpMethod.POST, "/api/station-head/stats").hasAuthority("STATION_HEAD")
                                 .requestMatchers(HttpMethod.GET, "/api/incident/stat/by-type").hasAuthority("STATION_HEAD")
+                                .requestMatchers(HttpMethod.POST, "/api/incident/add").permitAll()
 
                                 .requestMatchers(HttpMethod.DELETE, "/api/incident/soft-delete/{id}").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/station/by-incident/{incidentId}").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/api/incident/suspect/by-incident/{incidentId}").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/api/incident/all").hasAuthority("OFFICER")
                                 .requestMatchers(HttpMethod.GET, "/api/incident/all/v2").permitAll()
-
+                                .requestMatchers(HttpMethod.GET, "/api/incident/type-status").permitAll()
 
                                 .requestMatchers(HttpMethod.GET, "/api/incident/get-one/{id}").hasAnyAuthority("OFFICER", "STATION_HEAD")
                                 .requestMatchers(HttpMethod.POST, "/api/incident/add/v2/{officerId}").hasAuthority("OFFICER")
