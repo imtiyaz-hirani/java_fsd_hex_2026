@@ -2,6 +2,7 @@ import { Route, Router, Routes } from "react-router-dom";
 import Login from "./components/Login";
 import Todo from "./components/Todo";
 import IncidentList from "./components/IncidentList";
+import IncidentDashbaord from "./components/IncidentDashboard";
  
 function App(){
 
@@ -10,7 +11,7 @@ function App(){
         <Routes>
           <Route path="/" element={<Login />}/>
           <Route path="/todos" element={<Todo />}/>
-          <Route path="/incidents" element={<IncidentList />}/>
+          <Route path="/incidents" element={<IncidentDashbaord />}/>
         </Routes>
     </div>
   )
