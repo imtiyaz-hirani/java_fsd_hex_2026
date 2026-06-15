@@ -34,7 +34,7 @@ function IncidentList() {
     const onDelete = async (id) => {
         try {
             // call api to delete 
-            await axios.delete(deleteApi + id)                              
+            await axios.delete(deleteApi + id)
             // update the incidents array
             let tempArry = [...incidents].filter(i => i.id !== id)
             setIncidents([...tempArry])
@@ -51,12 +51,45 @@ function IncidentList() {
                     <div className="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
                         <div className="d-flex">
                             <div className="toast-body">
-                                 {deleteMsg}
+                                {deleteMsg}
                             </div>
                             <button type="button" className="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
                     </div> : ""
             }
+            {/* Filter , ADD bar */}
+            <div className="card mb-4" style={{ padding: '15px' }}>
+                <div className="row">
+                    <div className="col-sm-2">
+                        <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            > +Add </button>
+                    </div>
+                    <div className="col-sm-10">
+                        Filter , Sort , Search Options
+                    </div>
+                </div>
+            </div>
+            {/* Modal  */}
+             
+             
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
             <table className="table">
                 <thead>
                     <tr>
@@ -81,11 +114,11 @@ function IncidentList() {
                                 <td>{i.officer?.station?.stationTitle}</td>
                                 <td> <button className="btn btn-link p-0 text-decoration-none"
                                     onClick={() => onDelete(i.id)}>
-                                    <i class="bi bi-trash"></i>
+                                    <i className="bi bi-trash"></i>
                                 </button>
                                     &nbsp;&nbsp;&nbsp;
                                     <button className="btn btn-link p-0 text-decoration-none">
-                                        <i class="bi bi-pencil"
+                                        <i className="bi bi-pencil"
                                             onClick={() => onEdit(i.id)}></i>
                                     </button>
                                 </td>
