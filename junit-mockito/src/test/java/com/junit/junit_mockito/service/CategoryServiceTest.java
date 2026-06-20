@@ -1,5 +1,6 @@
 package com.junit.junit_mockito.service;
 
+import com.junit.junit_mockito.enums.CategoryReqDto;
 import com.junit.junit_mockito.exceptions.ResourceNotFoundException;
 import com.junit.junit_mockito.model.Category;
 import com.junit.junit_mockito.repository.CategoryRepository;
@@ -31,6 +32,8 @@ public class CategoryServiceTest {
 
     private Category category;
     private Category category1;
+    private Category category2;
+
     // Common Sample data for all test cases in CategoryService
     // Sequence:- Sample data loads - Test case runs - Sample data deloads
     @BeforeEach
@@ -44,6 +47,11 @@ public class CategoryServiceTest {
         category1.setId(2);
         category1.setName("laptops");
         category1.setSeq(2);
+
+        category2 = new Category(); // 555
+        category2.setId(3);
+        category2.setName("headphones");
+        category2.setSeq(3);
     }
 
     @Test
@@ -85,5 +93,36 @@ public class CategoryServiceTest {
         assertThatThrownBy(()-> categoryService.getById(100))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("Given id invalid");
+
+        verify(categoryRepository, times(1)).findById(100);
+    }
+
+    @Test
+    void addCategory_mustSaveAndReturnCategory(){
+        when(categoryRepository.save(any(Category.class))).thenReturn(category2);
+
+        CategoryReqDto dto = new CategoryReqDto("headphones", 3); //category2
+
+        Category actualCategory =  categoryService.addCategory(dto);
+        assertThat(actualCategory.getName()).isEqualTo(category2.getName());
+        assertThat(actualCategory.getSeq()).isEqualTo(category2.getSeq());
+
+        verify(categoryRepository, times(1)).save(any(Category.class));
+    }
+
+    @Test
+    void deleteCategory_mustDeleteAndReturnNothing(){
+        when(categoryRepository.findById(100)).thenReturn(Optional.of(category));
+
+        // When thenReturn does not work in void method tests
+        doNothing().when(categoryRepository).deleteById(100);
+        categoryService.delete(100);
+
+        // Check if repo call happens only once
+        verify(categoryRepository, times(1)).deleteById(100);
+        verify(categoryRepository, times(1)).findById(100);
     }
 }
+// DML : insert - save, update - save, delete - deleteById
+// category2(555)  --- category2(555)
+//

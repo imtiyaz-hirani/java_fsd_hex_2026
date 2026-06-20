@@ -30,4 +30,9 @@ public class CategoryService {
         return categoryRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Given id invalid"));
     }
+
+    public void delete(int id){
+        getById(id);
+        categoryRepository.deleteById(id);
+    }
 }
